@@ -1,6 +1,5 @@
 package com.indracompany.treinamento.model.dto;
 
-
 import lombok.Data;
 
 @Data

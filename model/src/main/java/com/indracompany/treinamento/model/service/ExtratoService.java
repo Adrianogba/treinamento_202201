@@ -46,6 +46,7 @@ public class ExtratoService extends GenericCrudService<EntradaExtrato, Long, Ext
 		entradaExtrato.setOperacao(operacao);
 		entradaExtrato.setDescricao(descricao);
 		entradaExtrato.setCliente(cliente);
+		entradaExtrato.setDataHora(new Date());
 		super.salvar(entradaExtrato);
 	}
 

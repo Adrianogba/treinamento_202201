@@ -52,6 +52,15 @@ public class ClienteService extends GenericCrudService<Cliente, Long, ClienteRep
 		return cliente;
 	}
 
+	public Cliente buscarCliente(String agencia, String numeroConta){
+		Cliente cliente = repository.findByAgenciaAndNumeroConta(agencia, numeroConta);
+
+		if (cliente == null) {
+			throw new AplicacaoException(ExceptionValidacoes.ALERTA_NENHUM_REGISTRO_ENCONTRADO);
+		}
+		return cliente;
+	}
+
 	public ClienteDTO buscarClientePorCpf(String cpf) {
 		boolean cpfValido = cpf != null && CpfUtil.validaCPF(cpf);
 
@@ -87,4 +96,6 @@ public class ClienteService extends GenericCrudService<Cliente, Long, ClienteRep
 		}
 		return retorno;
 	}
+
+
 }

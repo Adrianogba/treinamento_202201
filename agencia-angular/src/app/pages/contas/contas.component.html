@@ -1,0 +1,22 @@
+
+<h3>Minhas contas</h3>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">Id</th>
+    <th scope="col">Agencia</th>
+    <th scope="col">Numero</th>
+    <th scope="col">Saldo</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let conta of contas">
+    <th scope="row">{{conta.id}}</th>
+    <td>{{conta.agencia}}</td>
+    <td>{{conta.numero}}</td>
+    <td>{{conta.saldo}}</td>
+  </tr>
+
+  </tbody>
+</table>

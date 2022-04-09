@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ClientesService} from "../../services/clientes.service";
+import {ICliente} from "../../interfaces/cliente";
 
 @Component({
   selector: 'app-clientes',
@@ -15,10 +16,10 @@ export class ClientesComponent implements OnInit {
     this.listarTodos();
   }
 
-  clientes: any[] = [];
+  clientes: ICliente[] = [];
 
   listarTodos() {
-    this.clienteService.listarTodosClientes().subscribe((result: any) => {
+    this.clienteService.listarTodosClientes().subscribe((result: ICliente[]) => {
       this.clientes = result;
       console.log(this.clientes);
     });

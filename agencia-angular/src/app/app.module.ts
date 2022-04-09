@@ -7,13 +7,15 @@ import { HeaderComponent } from './components/header/header.component';
 import { ClientesComponent } from './pages/clientes/clientes.component';
 import { ContasComponent } from './pages/contas/contas.component';
 import {HttpClientModule} from "@angular/common/http";
+import { ClientesCadastrarEditarComponent } from './pages/clientes/clientes-cadastrar-editar/clientes-cadastrar-editar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     ClientesComponent,
-    ContasComponent
+    ContasComponent,
+    ClientesCadastrarEditarComponent
   ],
   imports: [
     BrowserModule,

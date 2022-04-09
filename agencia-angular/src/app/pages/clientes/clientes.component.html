@@ -8,6 +8,7 @@
     <th scope="col">CPF</th>
     <th scope="col">Email</th>
     <th scope="col">Observações</th>
+    <th scope="col">Operações</th>
   </tr>
   </thead>
   <tbody>
@@ -16,7 +17,18 @@
     <td>{{cliente.nome}}</td>
     <td>{{cliente.cpf}}</td>
     <td>{{cliente.email}}</td>
-    <td>{{cliente.observacoes.trim() == '' ? cliente.observacoes : 'Sem descrição'}}</td>
+    <td>{{(cliente.observacoes?.trim() == '') ? cliente.observacoes : 'Sem descrição'}}</td>
+    <td>
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          Ações
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" [routerLink]="['editar', cliente.id]">Editar</a></li>
+          <li><a class="dropdown-item" (click)="confirmarRemover(cliente)">Remover</a></li>
+        </ul>
+      </div>
+    </td>
   </tr>
   </tbody>
 </table>

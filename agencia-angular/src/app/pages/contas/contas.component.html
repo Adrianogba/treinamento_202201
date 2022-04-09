@@ -10,6 +10,7 @@
     <th scope="col">Saldo</th>
     <th scope="col">Nome do Cliente</th>
     <th scope="col">Email do Cliente</th>
+    <th scope="col">Operações</th>
   </tr>
   </thead>
   <tbody>
@@ -20,6 +21,18 @@
     <td>{{conta.saldo}}</td>
     <td>{{conta.cliente.nome}}</td>
     <td>{{conta.cliente.email}}</td>
+    <td>
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          Ações
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" (click)="saque(conta)">Saque</a></li>
+          <li><a class="dropdown-item" (click)="deposito(conta)">Deposito</a></li>
+          <li><a class="dropdown-item" (click)="transferenciaSelecionarValor(conta, contas)">Transferencia</a></li>
+        </ul>
+      </div>
+    </td>
   </tr>
 
   </tbody>

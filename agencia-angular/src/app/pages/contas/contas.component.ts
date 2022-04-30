@@ -121,6 +121,16 @@ export class ContasComponent implements OnInit {
       confirmButtonText: 'Selecionar conta',
       showLoaderOnConfirm: true,
       preConfirm: (valor) => {
+        if (valor > contaOrigem.saldo) {
+          Swal.fire({
+            title: 'Deu ruim!',
+            text: 'Saldo suficiente.',
+            icon: 'error',
+            timer: 3000,
+            timerProgressBar: true,
+          });
+          return
+        }
         this.transferenciaSelecionarConta(contaOrigem, contas, valor)
       }
     })
@@ -152,9 +162,8 @@ export class ContasComponent implements OnInit {
         let contaDestino = contas.find((obj) => {
           return obj.id.toString() === result.value.toString();
         });
-        if (contaDestino == undefined) {
-          return
-        }
+        if (contaDestino == undefined) return
+
         const transferencia: ITransferencia = {
           agenciaDestino: contaDestino.agencia,
           agenciaOrigem: contaOrigem.agencia,

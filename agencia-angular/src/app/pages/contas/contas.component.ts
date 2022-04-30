@@ -135,8 +135,8 @@ export class ContasComponent implements OnInit {
       },
       buttonsStyling: false
     })
-
-    const result = new Map(contas.map(i => [i.id, 'id:'+i.id+' Agencia ' + i.agencia + ', numero ' + i.numero]));
+    let outrasContas = contas.filter(x => x.id != contaOrigem.id)
+    const result = new Map(outrasContas.map(i => [i.id, 'id:'+i.id+' Agencia ' + i.agencia + ', numero ' + i.numero]));
 
     swalWithBootstrapButtons.fire({
       title: 'Selecione a conta de destino',

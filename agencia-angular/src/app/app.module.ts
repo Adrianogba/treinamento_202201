@@ -6,9 +6,13 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ClientesComponent } from './pages/clientes/clientes.component';
 import { ContasComponent } from './pages/contas/contas.component';
-import { HttpClientModule } from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { ClientesCadastrarEditarComponent } from './pages/clientes/clientes-cadastrar-editar/clientes-cadastrar-editar.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { LoaderComponent } from './components/loader/loader.component';
+import {NgxSpinnerModule} from "ngx-spinner";
+import {LoaderInterceptor} from "./interceptors/loader.interceptor";
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -17,15 +21,20 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     ClientesComponent,
     ContasComponent,
     ClientesCadastrarEditarComponent,
+    LoaderComponent,
+    HomeComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgxSpinnerModule,
+    ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import {ISaque} from "../../interfaces/saque";
 import {ICliente} from "../../interfaces/cliente";
 import {IDeposito} from "../../interfaces/deposito";
+import {ITransferencia} from "../../interfaces/transferencia";
 
 @Component({
   selector: 'app-contas',
@@ -111,9 +112,10 @@ export class ContasComponent implements OnInit {
   transferenciaSelecionarValor(contaOrigem: IConta, contas: IConta[]) {
     Swal.fire({
       title: 'Primeiro insira o valor a ser transferido',
+      footer: 'o valor maximo para esta transferencia é ' + contaOrigem.saldo,
       input: 'number',
       inputAttributes: {
-        autocapitalize: 'off'
+        autocapitalize: 'off',
       },
       showCancelButton: true,
       confirmButtonText: 'Selecionar conta',
@@ -134,7 +136,7 @@ export class ContasComponent implements OnInit {
       buttonsStyling: false
     })
 
-    const result = new Map(contas.map(i => [i.id, i.id]));
+    const result = new Map(contas.map(i => [i.id, 'id:'+i.id+' Agencia ' + i.agencia + ', numero ' + i.numero]));
 
     swalWithBootstrapButtons.fire({
       title: 'Selecione a conta de destino',
@@ -147,11 +149,40 @@ export class ContasComponent implements OnInit {
       cancelButtonText: 'Alterar valor',
     }).then((result) => {
       if (result.isConfirmed) {
-        swalWithBootstrapButtons.fire(
-          'Transferencia realizada com sucesso',
-          `${result.value}`,
-          'success'
-        )
+        let contaDestino = contas.find((obj) => {
+          return obj.id.toString() === result.value.toString();
+        });
+        if (contaDestino == undefined) {
+          return
+        }
+        const transferencia: ITransferencia = {
+          agenciaDestino: contaDestino.agencia,
+          agenciaOrigem: contaOrigem.agencia,
+          numeroContaDestino: contaDestino.numero,
+          numeroContaOrigem: contaOrigem.numero,
+          valor: valor,
+        }
+        this.contasService.transferencia(transferencia).subscribe(result => {
+          Swal.fire({
+            title: 'Tudo certo!',
+            text: 'Transferencia realizada com sucesso.',
+            icon: 'success',
+            timer: 3000,
+            timerProgressBar: true,
+          });
+          this.listarTodos();
+        }, error => {
+          console.log(error);
+          Swal.fire({
+            title: 'Deu ruim!',
+            text: 'Transferencia não foi possível.',
+            icon: 'error',
+            timer: 3000,
+            timerProgressBar: true,
+          });
+        })
+
+
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         this.transferenciaSelecionarValor(contaOrigem, contas)
       }

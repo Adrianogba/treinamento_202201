@@ -17,6 +17,5 @@
     <label for="observacoes" class="form-label">Observações</label>
     <textarea type="text" class="form-control" rows="5" id="observacoes" formControlName="observacoes"></textarea>
   </div>
-  <div [hidden]="formCliente.valid">Formulário inválido!<br>Preenche sap#rra direito... tomanoc#</div>
   <button type="submit" class="btn btn-primary" [disabled]="!formCliente.valid">Enviar</button>
 </form>

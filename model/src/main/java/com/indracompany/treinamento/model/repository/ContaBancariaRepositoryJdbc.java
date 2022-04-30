@@ -22,11 +22,11 @@ public class ContaBancariaRepositoryJdbc {
 		
 		StringBuilder sql = new StringBuilder("select c.* from contas c ");
 		
-		if (agencia!= null && !agencia.isBlank()) {
+		if (agencia!= null && !agencia.isEmpty()) {
 			sql.append(" and c.agencia = ?");
 		}
 		
-		if (numeroConta != null && !numeroConta.isBlank()) {
+		if (numeroConta != null && !numeroConta.isEmpty()) {
 			sql.append(" and c.numero = ? ");
 		}
 		
